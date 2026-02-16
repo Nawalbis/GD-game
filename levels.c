@@ -3,19 +3,20 @@
 #include<stdlib.h>
 #include "menu.h"
 
-
+/**
+ * @param renderer The SDL renderer
+ * @param niveau The level number (1-3)
+ * @goal Load and return the background texture for the specified level
+ */
 SDL_Texture* chargerFondNiveau(SDL_Renderer* renderer, int niveau) {
     SDL_Texture* texture = NULL;
     SDL_Surface* surface = NULL;
     char chemin[100];
-
     if (renderer == NULL) {
         printf("Erreur, renderer non valide : %s\n", SDL_GetError());
         return NULL;
     }
-
     switch (niveau) {
-        //association d'un int aux images de niveau
         case 1:
             snprintf(chemin, sizeof(chemin), "images/images_backgrounds/fond_easy.png"); 
             break;
@@ -29,8 +30,7 @@ SDL_Texture* chargerFondNiveau(SDL_Renderer* renderer, int niveau) {
             printf("Erreur : niveau invalide (%d).\n", niveau);
             return NULL;
     }
-
-    surface = IMG_Load(chemin);//création de la surface transformée par la suite en texture 
+    surface = IMG_Load(chemin);
     if (surface != NULL) {
         texture = SDL_CreateTextureFromSurface(renderer, surface);
         SDL_FreeSurface(surface);
@@ -40,6 +40,5 @@ SDL_Texture* chargerFondNiveau(SDL_Renderer* renderer, int niveau) {
     } else {
         printf("Erreur de chargement de l'image (%s) : %s\n", chemin, IMG_GetError());
     }
-
     return texture;
 }

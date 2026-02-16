@@ -5,38 +5,46 @@
 Mix_Music *musique = NULL;
 Mix_Chunk *saut = NULL;
 
+/**
+ * @goal Initialize the audio system and load sound files
+ */
 int init_audio() {
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
         printf("Erreur initialisation audio : %s\n", Mix_GetError());
         return 0;
     }
-
-    // Charger les sons
     musique = Mix_LoadMUS("audio/gd.mp3");
     if (!musique) {
         printf("Erreur chargement musique : %s\n", Mix_GetError());
     }
-
     saut = Mix_LoadWAV("audio/saut.wav");
     if (!saut) {
         printf("Erreur chargement son : %s\n", Mix_GetError());
     }
-
     return 1;
 }
 
+/**
+ * @goal Play the background music in an infinite loop
+ */
 void play_music() {
     if (musique) {
-        Mix_PlayMusic(musique, -1); // Boucle infinie
+        Mix_PlayMusic(musique, -1);
     }
 }
 
+/**
+ * @goal Play the jump sound effect
+ */
 void play_saut() {
     if (saut) {
         Mix_PlayChannel(-1, saut, 0);
     }
 }
 
+/**
+ * @goal Free audio resources and close the audio system
+ */
 void clean_audio() {
     if (musique) Mix_FreeMusic(musique);
     if (saut) Mix_FreeChunk(saut);

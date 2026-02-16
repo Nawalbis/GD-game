@@ -17,7 +17,11 @@
 #define WINDOW_HEIGHT 700
 #define WINDOW_WIDTH 1000
 
-
+/**
+ * @param argc Number of command line arguments
+ * @param argv Array of command line arguments
+ * @goal Main game loop - initialize SDL, handle events, and manage game states
+ */
 int main(int argc, char* argv[]) {
     srand(time(NULL));
 
@@ -55,7 +59,7 @@ int main(int argc, char* argv[]) {
     int continuer = 1;
     int niveau = 0;
     int jeu = 0;
-    int niveau_actuel_jeu = 0; // Pour savoir quel niveau est en cours
+    int niveau_actuel_jeu = 0;
 
     background = chargerBackground(renderer, niveau);
     if (background == NULL) {
@@ -117,7 +121,6 @@ int main(int argc, char* argv[]) {
                     if (niveau == 0) {
                         niveau = 1;
                     } else if (niveau >= 1 && niveau <= 3) {
-                        // Charger les obstacles du niveau choisi
                         nb_obstacles = charger_obstacles_niveau(&obstacles, niveau);
                         niveau_actuel_jeu = niveau;
                         
